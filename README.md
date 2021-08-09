@@ -6,3 +6,5 @@ When some image is drag in the active tab will be executing the following algori
     - analize text in the image, with some google API
     - search books with some title and artist in the text
     - If the text both includes artist and title of a know book, open the extension popup
+
+Other feraute: download books in freepfd
