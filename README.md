@@ -7,4 +7,9 @@ When some image is drag in the active tab will be executing the following algori
     - search books with some title and artist in the text
     - If the text both includes artist and title of a know book, open the extension popup
 
-Other feraute: download books in freepfd
+Other feraute: download books in 
+
+see this video: https://www.youtube.com/watch?v=H-anyDrYHyg
+books api: https://developers.google.com/books/docs/v1/getting_started?csw=1
+
+other: https://cloud.google.com/identity-platform/docs/web/chrome-extension
