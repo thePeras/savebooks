@@ -6,24 +6,27 @@
 
 const user_sign_in = false
 const client_id = encodeURIComponent("1068499458128-rtql6hemdvta9i76vk517urt80c9mpe7.apps.googleusercontent.com")
-const response_type = encodeURIComponent("id_token")
+const response_type = encodeURIComponent("code")
 const redirect_uri = encodeURIComponent("https://edpnkilfjdnehojaedoeicbjabdocghb.chromiumapp.org")
 const state = encodeURIComponent("123")
 const scope = encodeURIComponent("https://www.googleapis.com/auth/books")
 
 
-
-const login = () => {
+const createUrl = () => {
   let nonce = encodeURIComponent(Math.random().toString(36).substring(2, 15) + Math.random().toString().substring(2, 15))
-  let url = `https://accounts.google.com/o/oauth2/v2/auth?
-    client_id=${client_id}&response_type=${response_type}&redirect_uri=${redirect_uri}&state=${state}
-    &scope=${scope}&nonce=${nonce}`
-
+  let url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${client_id}&response_type=${response_type}&redirect_uri=${redirect_uri}&state=${state}&scope=${scope}&nonce=${nonce}`
   console.log(url)
-
   return url
 }
-
+const login = (sendResponse) => {
+  chrome.identity.launchWebAuthFlow({
+    url: createUrl(),
+    interactive: true
+  }, (redirect_uri) => {
+    console.log(redirect_uri)
+    sendResponse("success")
+  })
+}
 const logout = () => {
   console.log("logout!")
 }
@@ -32,13 +35,16 @@ const isUserSignIn = () => {
 }
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  console.log(request)
+  console.log("THIS IS A MESSAGE!")
+  console.log(request.message)
   switch(request.message){
-    case "login": {
-      if(!user_sign_in) login()
-    }
-    case "logout": logout();
-    case "isUserSignIn": isUserSignIn();
+    case "login": 
+      if(!user_sign_in) login(sendResponse)
+      break;
+    case "logout": logout(); break;
+    case "isUserSignIn": isUserSignIn(); break;
+    default:
+      console.log("Sorry I dint understand")
   }
 })
 

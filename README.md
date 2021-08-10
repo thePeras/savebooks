@@ -13,3 +13,5 @@ see this video: https://www.youtube.com/watch?v=H-anyDrYHyg
 books api: https://developers.google.com/books/docs/v1/getting_started?csw=1
 
 other: https://cloud.google.com/identity-platform/docs/web/chrome-extension
+
+The developer hasn’t given you access to this app. It’s currently being tested and it hasn’t been verified by Google. If you think you should have access, contact the developer (jtopereira@gmail.com).
