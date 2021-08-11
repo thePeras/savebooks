@@ -1,0 +1,55 @@
+body{
+    width: 460px;
+    background: rgb(207, 255, 253);
+}
+body{
+    padding: 30px;
+}
+body div {
+    margin: 5px;
+}
+#header{
+    display: flex;
+    justify-content: space-between;
+}
+#add_new_book{
+    padding: 10px;
+    background: rgb(255, 255, 255);
+    border-radius: 15px;
+    margin: 10px auto;
+    width: 140px;
+    text-align: center;
+    cursor: pointer;
+}
+
+#collections{
+    display: flex;
+    flex-wrap: wrap;
+}
+.books_collection{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    cursor: pointer;
+    margin: 10px;
+    padding: 5px;
+}
+.icon{
+    height: 30px;
+    margin-top: -30px;
+}
+
+.hidden{
+    opacity: 0;
+    visibility: hidden;
+}
+#add_new_book_div{
+    position: absolute;
+    background: white;
+    border-radius: 15px;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    top: 10px;
+    width: 250px;
+}

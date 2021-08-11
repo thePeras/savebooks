@@ -8,6 +8,12 @@
     },
     "permissions": ["storage", "activeTab", "scripting", "identity"],
     "action": {
-        "default_popup": "./popup.html"
-    }
+        "default_popup": "./htmls/popup.html",
+        "default_title": "Login"
+    },
+    "oauth2": {
+        "client_id": "1068499458128-rtql6hemdvta9i76vk517urt80c9mpe7.apps.googleusercontent.com",
+        "scopes": ["https://www.googleapis.com/auth/books"]
+    },
+    "host_permissions": ["https://www.googleapis.com/books/v1/*"]
   }

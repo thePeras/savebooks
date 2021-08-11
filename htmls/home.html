@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="../styles/geral.css">
+    <link rel="stylesheet" href="../styles/home.css">
+    <meta charset="UTF-8">
+  </head>
+  <body>
+      <div id="header">
+          <h2>OrganizeMyBooks</h2>
+          <button id="logout">Logout</button>
+      </div>
+      <div>
+          <p id="add_new_book">Add new Book</p>
+      </div>
+      <div id="collections">
+        <div class="books_collection">
+            <div class="booksHeader">
+              <img src="../public/icons/book.svg" height="70"/>
+            </div>
+            <img src="../public/icons/star.svg" class="icon"/>
+            <h4>Favourites</h4>
+        </div>
+        <div class="books_collection">
+          <div class="booksHeader">
+            <img src="../public/icons/book.svg" height="70"/>
+          </div>
+          <img src="../public/icons/copy.svg" class="icon"/>
+          <h4>Reading</h4>
+        </div>
+        <div class="books_collection">
+          <div class="booksHeader">
+            <img src="../public/icons/book.svg" height="70"/>
+          </div>
+          <img src="../public/icons/check.svg" class="icon"/>
+          <h4>Have read</h4>
+        </div>
+        <div class="books_collection">
+          <div class="booksHeader">
+            <img src="../public/icons/book.svg" height="70"/>
+          </div>
+          <img src="../public/icons/double-chevron.svg" class="icon"/>
+          <h4>To read</h4>
+        </div>
+      </div>
+      <div id="suggestion_books">
+        <h2>Recomended books</h2>
+        <div>
+
+        </div>
+      </div>
+
+      <div id="add_new_book_div" class="hidden">
+        <h2>Add new book</h2>
+        <button id="close">close</button>
+        <label for="list">
+          <p>List</p>
+        </label>
+        <select name="cars" id="list">
+          <option value="favorites">Favorites</option>
+          <option value="reading">Reading now</option>
+          <option value="to_read" selected>To read</option>
+          <option value="have_read">Have read</option>
+        </select>
+
+        <label for="book_search"><p>Search Book</p></label>
+        <input type="text" id="book_search" />
+        <div id="searched_books">
+
+        </div>
+      </div>
+  </body>
+  <script src="../scripts/homescript.js"></script>
+</html>
