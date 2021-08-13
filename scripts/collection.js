@@ -42,7 +42,7 @@ const createBook = (book, addFunction) => {
         <img src='${imageLink}'/>
         <h2>${title}</h2>
         <h3>${authors.join(", ")}</h3>
-        <p>${description ? description : ""}</p>
+        <p>${description ? description : ""} </p>
     `
     return div
     
