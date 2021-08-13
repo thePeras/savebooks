@@ -53,3 +53,9 @@ body div {
     top: 10px;
     width: 250px;
 }
+
+#recommended_books{
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+}

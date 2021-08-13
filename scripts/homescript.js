@@ -7,6 +7,7 @@ let close_button = document.querySelector("#close")
 let add_new_book_button = document.querySelector("#add_new_book")
 let book_search = document.querySelector("#book_search")
 let searched_books = document.querySelector("#searched_books")
+let recommended_books = document.querySelector("#recommended_books")
 
 //Functions
 const toggleAddNewBook = () => {
@@ -36,13 +37,15 @@ const print_books = (books) => {
 }
 
 const createBook = (book, addFunction) => {
-    let {title, authors, imageLinks, description} = book.volumeInfo //id and preview
+    console.log(book)
+    let {title, authors, description} = book.volumeInfo //id and preview
+    let imageLink = book.volumeInfo.imageLinks?.thumbnail || "https://books.google.pt/googlebooks/images/no_cover_thumb.gif" 
 
     let div = document.createElement("div")
     div.className = "book_div"
     div.onClick = open_book(book)
     div.innerHTML = `
-        <image src='${imageLinks.thumbnail}' height="100"/>
+        <img src='${imageLink}'/>
         <h2>${title}</h2>
         <h3>${authors.join(", ")}</h3>
         <p>${description}</p>
@@ -61,8 +64,32 @@ close_button.addEventListener("click", toggleAddNewBook)
 
 book_search.addEventListener("change", () => {search_books(book_search.value)})
 
+chrome.storage.local.get('recommended', function(result) {
+    recommended_books.innerHTML = ""
+    if(result.recommended.length > 0){
+        console.log("first initial", result.recommended)
+        result.recommended.forEach(book => {
+            recommended_books.append(createBook(book, false))
+        })
+    }
+});
 
-
+chrome.storage.onChanged.addListener(function (changes, namespace) {
+    for (let [key, { oldValue, newValue }] of Object.entries(changes)) {
+        if(key === "recommended"){
+            recommended_books.innerHTML = ""
+            if(newValue.length > 0){
+                newValue.forEach(book => {
+                    recommended_books.append(createBook(book, false))
+                })
+            }
+        }
+      console.log(
+        `Storage key "${key}" in namespace "${namespace}" changed.`,
+        `Old value was "${oldValue}", new value is "${newValue}".`
+      );
+    }
+  });
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     sendResponse("recived")
@@ -76,6 +103,5 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 })
 
 document.querySelectorAll(".books_collection").forEach(collection => collection.addEventListener("click", () => {
-    console.log("asdasdasd")
     window.location.href = `../htmls/collection.html?bookshelve=${collection.dataset.bookshelve}`
 }))

@@ -148,7 +148,6 @@ const get_token = async () => {
 }
 const get_collections = async () => {
   let token = await get_token()
-
   collections = {
     favorites: await fetch_collection(0, token),
     reading: await fetch_collection(3, token),
@@ -156,6 +155,7 @@ const get_collections = async () => {
     have_read: await fetch_collection(4, token), 
     recommended: await fetch_collection(8, token)
   }
+  chrome.storage.local.set({recommended: collections.recommended});
 }
 const fetch_collection = async (id, token) => {
   return new Promise((resolve, error) => {

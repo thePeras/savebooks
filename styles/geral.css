@@ -6,3 +6,11 @@
 h1,h2,h3,h4,h5,h6,p{
     font-family: Arial, Helvetica, sans-serif;
 }
+
+.book_div{
+    text-align: center;
+}
+
+.book_div > img{
+    height: 100px;
+}
