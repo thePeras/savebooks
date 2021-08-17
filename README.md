@@ -18,5 +18,6 @@ books api: https://developers.google.com/books/docs/v1/getting_started?csw=1
 - design book
 - actions to book
 
-- add book (new href location)
-- functions
+- update bookshelves, and add all bookshevels to storage not get
+
+- move volume order

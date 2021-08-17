@@ -4,7 +4,6 @@
       window.chrome;
   })();**/
 
-
 const client_id = encodeURIComponent("1068499458128-rtql6hemdvta9i76vk517urt80c9mpe7.apps.googleusercontent.com")
 const response_type = encodeURIComponent("token")
 const redirect_uri = encodeURIComponent("https://edpnkilfjdnehojaedoeicbjabdocghb.chromiumapp.org")
@@ -69,7 +68,7 @@ const login = (initial = false) => {
 const logout = () => {
   console.log("logout!")
   chrome.storage.sync.remove("auth", () => {
-    chrome.action.setPopup({popup: "./htmls/popup.html"})
+    chrome.action.setPopup({popup: "./htmls/popup.html"}, () => {})
   });
   chrome.runtime.sendMessage({message: "logged_out"}, function(response) {
     console.log(response);
@@ -95,6 +94,10 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
       case "logout": logout(); sendResponse("done"); break; 
       case "get_collection":
         sendResponse(collections[request.bookshelve])
+        break;
+      case "add_delete": 
+        console.log("THE SHELFT req shelf", request.shelf)
+        add_delete(request.action, request.volumeid, request.shelf)
         break;
       default:
         console.log("Sorry I dint understand")
@@ -170,8 +173,22 @@ const fetch_collection = async (id, token) => {
     .catch(err => error(err))
   })
 }
-
-
+const add_delete = async (action, id, shelf) => {
+  let token = await get_token()
+  return new Promise((resolve, error) => {
+    const url = `https://www.googleapis.com/books/v1/mylibrary/bookshelves/${shelf}/${action === "delete" ? "removeVolume" : "addVolume"}?volumeId=${id}&key=${APP_KEY}`
+    console.log(url)
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token,
+      }
+    }).then(response => response.json())
+    .then(data => console.log(data || [])) //UPDATE BOOKSHELVES
+    .catch(err => error(err))
+  })
+}
 
 // TO CHECK IF THE USER IS ALREADY LOGGED
 // This goes into eventPage.js and executes once on extension load

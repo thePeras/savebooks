@@ -9,8 +9,16 @@ h1,h2,h3,h4,h5,h6,p{
 
 .book_div{
     text-align: center;
+    max-width: 130px;
+    margin: 5px 0;
 }
 
 .book_div > img{
     height: 100px;
+}
+.book_div > h4{
+    margin: 0 10px;
+}
+.book_div > h5 {
+    color: rgb(75, 75, 75);
 }

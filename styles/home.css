@@ -59,3 +59,9 @@ body div {
     flex-wrap: nowrap;
     overflow-x: scroll;
 }
+
+#searched_books{
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+}

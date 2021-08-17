@@ -3,16 +3,10 @@ const APP_KEY = "AIzaSyDJalQbZ22nGh1kpckaCb5MqFuSzyWP-jQ"
 
 //elements
 let logout_button = document.querySelector("#logout")
-let close_button = document.querySelector("#close")
 let add_new_book_button = document.querySelector("#add_new_book")
-let book_search = document.querySelector("#book_search")
-let searched_books = document.querySelector("#searched_books")
 let recommended_books = document.querySelector("#recommended_books")
 
 //Functions
-const toggleAddNewBook = () => {
-    document.querySelector("#add_new_book_div").classList.toggle("hidden")
-}
 const logout = () => {
     chrome.runtime.sendMessage({message: "logout"})
 }
@@ -43,26 +37,20 @@ const createBook = (book, addFunction) => {
 
     let div = document.createElement("div")
     div.className = "book_div"
-    div.onClick = open_book(book)
+    div.title = description ? description : ""
+    div.onClick = console.log(book)
     div.innerHTML = `
         <img src='${imageLink}'/>
-        <h2>${title}</h2>
-        <h3>${authors.join(", ")}</h3>
-        <p>${description}</p>
+        <h4>${title}</h4>
+        <h5>${authors.join(", ")}</h5>
     `
     return div
-    
 }
 
 const open_book = (book) => {
     console.log(book)
 }
 //Events
-logout_button.addEventListener("click", logout)
-add_new_book_button.addEventListener("click", toggleAddNewBook)
-close_button.addEventListener("click", toggleAddNewBook)
-
-book_search.addEventListener("change", () => {search_books(book_search.value)})
 
 chrome.storage.local.get('recommended', function(result) {
     recommended_books.innerHTML = ""
@@ -101,6 +89,9 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
             console.log(request.message)
     }
 })
+
+logout_button.addEventListener("click", logout)
+add_new_book_button.addEventListener("click", () => window.location.href = '../htmls/search.html')
 
 document.querySelectorAll(".books_collection").forEach(collection => collection.addEventListener("click", () => {
     window.location.href = `../htmls/collection.html?bookshelve=${collection.dataset.bookshelve}`
