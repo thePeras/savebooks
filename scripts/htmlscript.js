@@ -1,6 +1,6 @@
-document.querySelector("#login").addEventListener("click", () => {
-    chrome.runtime.sendMessage({message: "login"}, function(response) {
-        console.log(response);
+//Login button event
+document.querySelector("#google-login").addEventListener("click", () => {
+    chrome.runtime.sendMessage({message: "login"}, (response) => {
         if(response === "success"){
             window.location.href = '../htmls/home.html'
         }
