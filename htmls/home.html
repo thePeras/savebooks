@@ -6,69 +6,85 @@
     <meta charset="UTF-8">
   </head>
   <body>
-      <div id="header">
-          <h2>OrganizeMyBooks</h2>
-          <button id="logout">Logout</button>
-      </div>
-      <div>
-          <p id="add_new_book">Add new Book</p>
-      </div>
-      <div id="collections">
-        <div class="books_collection" data-bookshelve="favorites">
-            <div class="booksHeader">
-              <img src="../public/icons/book.svg" height="70"/>
-            </div>
-            <img src="../public/icons/star.svg" class="icon"/>
-            <h4>Favourites</h4>
-        </div>
-        <div class="books_collection" data-bookshelve="reading">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>
+
+    <div id="header">
+        <h2>OrganizeMyBooks</h2>
+        <button id="logout">
+          Logout
+          <svg class="doorway" viewBox="0 0 100 100">
+            <path d="M93.4 86.3H58.6c-1.9 0-3.4-1.5-3.4-3.4V17.1c0-1.9 1.5-3.4 3.4-3.4h34.8c1.9 0 3.4 1.5 3.4 3.4v65.8c0 1.9-1.5 3.4-3.4 3.4z"></path>
+            <path class="bang"></path>
+          </svg>
+          <svg class="door" viewBox="0 0 100 100">
+            <path d="M93.4 86.3H58.6c-1.9 0-3.4-1.5-3.4-3.4V17.1c0-1.9 1.5-3.4 3.4-3.4h34.8c1.9 0 3.4 1.5 3.4 3.4v65.8c0 1.9-1.5 3.4-3.4 3.4z"></path>
+            <circle cx="66" cy="50" r="3.7"></circle>
+          </svg>
+        </button>
+    </div>
+    <div>
+        <button class="button" id="add-button">
+          Add Book
+        </button>
+    </div>
+    <div id="collections">
+      <div class="books_collection" data-bookshelve="favorites">
           <div class="booksHeader">
             <img src="../public/icons/book.svg" height="70"/>
           </div>
-          <img src="../public/icons/copy.svg" class="icon"/>
-          <h4>Reading</h4>
-        </div>
-        <div class="books_collection" data-bookshelve="to_read">
-          <div class="booksHeader">
-            <img src="../public/icons/book.svg" height="70"/>
-          </div>
-          <img src="../public/icons/double-chevron.svg" class="icon"/>
-          <h4>To read</h4>
-        </div>
-        <div class="books_collection" data-bookshelve="have_read">
-          <div class="booksHeader">
-            <img src="../public/icons/book.svg" height="70"/>
-          </div>
-          <img src="../public/icons/check.svg" class="icon"/>
-          <h4>Have read</h4>
-        </div>
+          <img src="../public/icons/star.svg" class="icon"/>
+          <h4>Favourites</h4>
       </div>
-      <div id="suggestion_books">
-        <h2>Recomended books</h2>
-        <div id="recommended_books">
-
+      <div class="books_collection" data-bookshelve="reading">
+        <div class="booksHeader">
+          <img src="../public/icons/book.svg" height="70"/>
         </div>
+        <img src="../public/icons/copy.svg" class="icon"/>
+        <h4>Reading</h4>
       </div>
-
-      <div id="add_new_book_div" class="hidden">
-        <h2>Add new book</h2>
-        <button id="close">close</button>
-        <label for="list">
-          <p>List</p>
-        </label>
-        <select name="cars" id="list">
-          <option value="favorites">Favorites</option>
-          <option value="reading">Reading now</option>
-          <option value="to_read" selected>To read</option>
-          <option value="have_read">Have read</option>
-        </select>
-
-        <label for="book_search"><p>Search Book</p></label>
-        <input type="text" id="book_search" />
-        <div id="searched_books">
-
+      <div class="books_collection" data-bookshelve="to_read">
+        <div class="booksHeader">
+          <img src="../public/icons/book.svg" height="70"/>
         </div>
+        <img src="../public/icons/double-chevron.svg" class="icon"/>
+        <h4>To read</h4>
       </div>
+      <div class="books_collection" data-bookshelve="have_read">
+        <div class="booksHeader">
+          <img src="../public/icons/book.svg" height="70"/>
+        </div>
+        <img src="../public/icons/check.svg" class="icon"/>
+        <h4>Have read</h4>
+      </div>
+    </div>
+    <div id="suggestion_books">
+      <h2>Recomended books</h2>
+      <div id="recommended_books">
+
+      </div>
+    </div>
+
+    <div id="add_new_book_div" class="hidden">
+      <h2>Add new book</h2>
+      <button id="close">close</button>
+      <label for="list">
+        <p>List</p>
+      </label>
+      <select name="cars" id="list">
+        <option value="favorites">Favorites</option>
+        <option value="reading">Reading now</option>
+        <option value="to_read" selected>To read</option>
+        <option value="have_read">Have read</option>
+      </select>
+
+      <label for="book_search"><p>Search Book</p></label>
+      <input type="text" id="book_search" />
+      <div id="searched_books">
+
+      </div>
+    </div>
   </body>
   <script src="../scripts/homescript.js"></script>
 </html>

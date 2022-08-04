@@ -1,0 +1,262 @@
+body{
+    width: 450px;
+    padding: 30px;
+    background: rgb(207, 255, 253);
+    background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+    overflow: hidden;
+    color: rgb(244, 252, 255);
+}
+body div {
+    margin: 5px;
+}
+#header{
+    display: flex;
+    justify-content: space-between;
+}
+
+#logout{
+    border: 0;
+    border-radius: 2px;
+    cursor: pointer;
+    display: block;
+    font-family: "Quicksand", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    height: 25px;
+    outline: none;
+    padding: 0 15px;
+    perspective: 100px;
+    position: relative;
+    text-align: left;
+
+    &:hover {
+        .door {
+          transform: rotateY(20deg);
+        }
+      }    
+}
+// Colors
+$dark: #1f2335;
+$middle: #4371f7;
+$light: #f4f7ff;
+
+#logout{
+    background: $light;
+    background-color: $light;
+    color: $dark;
+    border: 0;
+    cursor: pointer;
+    display: block;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    height: 25px;
+    outline: none;
+    padding: 0 40px 0 20px;
+    perspective: 100px;
+    position: relative;
+    text-align: left;
+    -webkit-tap-highlight-color: transparent;
+
+    &:hover {
+        &::before {
+            transform: scale(.96);
+        }
+
+        .door {
+        transform: rotateY(28deg);
+        }
+    }
+
+    // close the door
+    .door, .doorway { fill: $dark; }
+}
+
+svg {
+    display: block;
+    position: absolute;
+}
+
+.door,
+.doorway {
+    bottom: 0px;
+    fill: $light;
+    right: 12px;
+    width: 25px;
+} 
+
+.door {
+    transform: rotateY(20deg);
+    transform-origin: 100% 50%;
+    transform-style: preserve-3d;
+    transition: transform 200ms ease;
+    z-index: 5;
+
+    path {
+        fill: $middle;
+        stroke: $middle;
+        stroke-width: 4;
+    }
+}
+
+.doorway {
+    z-index: 3;
+}
+
+#add_new_book{
+    padding: 10px;
+    background: rgb(255, 255, 255);
+    border-radius: 15px;
+    margin: 10px auto;
+    width: 140px;
+    text-align: center;
+    cursor: pointer;
+}
+.button{
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: none;
+    font-size: 1rem;
+    border-radius: 25px;
+    padding: 0.65rem 1.9rem;
+    transition: .2s ease all;
+    color: white;
+    border: none;
+    box-shadow: 0px 10px 20px #9bc5fd64;
+    background: #52A0FD;
+    background: -moz-linear-gradient(left,  #52A0FD 0%, #00C9FB 80%, #00C9FB 100%);
+    background: -webkit-linear-gradient(left,  #52A0FD 0%, #00C9FB 80%, #00C9FB 100%);
+    background: linear-gradient(to right,  #52A0FD 0%, #00C9FB 80%, #00C9FB 100%);
+}
+#add-button {
+    text-align: center;
+    margin: 20px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#add-button:hover {
+    transform: scale(1.03);
+}
+#add-button:active{
+    transform: translateY(3px) scale(.97);
+}
+
+#collections{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.books_collection{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    cursor: pointer;
+    margin: 10px;
+    padding: 5px;
+}
+.icon{
+    height: 30px;
+    margin-top: -30px;
+}
+
+.hidden{
+    opacity: 0;
+    visibility: hidden;
+}
+#add_new_book_div{
+    position: absolute;
+    background: white;
+    border-radius: 15px;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    top: 10px;
+    width: 250px;
+}
+
+#recommended_books{
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+}
+
+#searched_books{
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+}
+
+// n is number of stars required
+@function multiple-box-shadow ($n) {
+    $value: '#{random(2000)}px #{random(2000)}px #FFF';
+    @for $i from 2 through $n {
+      $value: '#{$value} , #{random(2000)}px #{random(2000)}px #FFF';
+    }
+    @return unquote($value);
+  }
+  
+  $shadows-small:  multiple-box-shadow(700);
+  $shadows-medium: multiple-box-shadow(200);
+  $shadows-big:    multiple-box-shadow(100);
+
+#stars{
+    width: 1px;
+    height: 1px;
+    background: transparent;
+    box-shadow: $shadows-small;
+    animation     : animStar 50s linear infinite;
+        
+    &:after{
+        content: " ";
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        background: transparent;
+        box-shadow: $shadows-small;
+    }
+}
+
+#stars2{
+    width: 2px;
+    height: 2px;
+    background: transparent;
+    box-shadow: $shadows-medium;
+    animation: animStar 100s linear infinite;
+        
+    &:after{
+        content: " ";
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background: transparent;
+        box-shadow: $shadows-medium;
+    }
+}  
+#stars3{
+    width: 3px;
+    height: 3px;
+    background: transparent;
+    box-shadow: $shadows-big;
+    animation: animStar 150s linear infinite;
+        
+    &:after{
+        content: " ";
+        position: absolute;
+        width: 3px;
+        height: 3px;
+        background: transparent;
+        box-shadow: $shadows-big;
+    }
+}
+@keyframes animStar {
+    from {
+      transform: translateY(0px);
+    }
+    to{
+      transform: translateY(-1800px);
+    }
+  }
+  

@@ -3,7 +3,7 @@ const APP_KEY = "AIzaSyDJalQbZ22nGh1kpckaCb5MqFuSzyWP-jQ"
 
 //elements
 let logout_button = document.querySelector("#logout")
-let add_new_book_button = document.querySelector("#add_new_book")
+let add_new_book_button = document.querySelector("#add-button")
 let recommended_books = document.querySelector("#recommended_books")
 
 //Functions
