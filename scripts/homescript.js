@@ -83,7 +83,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     sendResponse("recived")
     switch(request.message){
         case "logged_out":
-            window.location.href = "../htmls/popup.html";
+            window.location.href = "../html/popup.html";
             break
         default:
             console.log(request.message)
@@ -91,8 +91,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 })
 
 logout_button.addEventListener("click", logout)
-add_new_book_button.addEventListener("click", () => window.location.href = '../htmls/search.html')
+add_new_book_button.addEventListener("click", () => window.location.href = '../html/search.html')
 
 document.querySelectorAll(".books_collection").forEach(collection => collection.addEventListener("click", () => {
-    window.location.href = `../htmls/collection.html?bookshelve=${collection.dataset.bookshelve}`
+    window.location.href = `../html/collection.html?bookshelve=${collection.dataset.bookshelve}`
 }))

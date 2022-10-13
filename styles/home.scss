@@ -37,7 +37,7 @@ body div {
 }
 // Colors
 $dark: #1f2335;
-$middle: #4371f7;
+$middle: #52A0FD;
 $light: #f4f7ff;
 
 #logout{
@@ -50,7 +50,7 @@ $light: #f4f7ff;
     font-family: 'Quicksand', sans-serif;
     font-size: 14px;
     font-weight: 500;
-    height: 25px;
+    height: 30px;
     outline: none;
     padding: 0 40px 0 20px;
     perspective: 100px;
@@ -79,9 +79,9 @@ svg {
 
 .door,
 .doorway {
-    bottom: 0px;
+    bottom: 2px;
     fill: $light;
-    right: 12px;
+    right: 20px;
     width: 25px;
 } 
 

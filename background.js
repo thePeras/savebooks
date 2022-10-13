@@ -1,24 +1,61 @@
-/**window.browser = (function () {
-    return window.msBrowser ||
-      window.browser ||
-      window.chrome;
-  })();**/
-
-const client_id = encodeURIComponent("1068499458128-rtql6hemdvta9i76vk517urt80c9mpe7.apps.googleusercontent.com")
-const response_type = encodeURIComponent("token")
-const redirect_uri = encodeURIComponent("https://edpnkilfjdnehojaedoeicbjabdocghb.chromiumapp.org")
-const state = encodeURIComponent("123")
-const scope = encodeURIComponent("https://www.googleapis.com/auth/books")
+//APP VARIABLES
 const APP_KEY = "AIzaSyDJalQbZ22nGh1kpckaCb5MqFuSzyWP-jQ"
 
+//APP STATE
 let collections = {}
 
+//SERVICE WORKER ROUTER
+chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
+  console.log("new message:", request.message)
+
+  switch(request.message){
+    // LOGIN
+    case "login": 
+      //check for user already login
+      login(true).then(response => {
+        chrome.runtime.sendMessage({message: "logged_in"}, function(response) {
+          sendResponse("done")
+        });
+      })
+      break;
+
+    // LOGOUT
+    case "logout": logout(); sendResponse("done"); break; //TODO: Clear local storage
+
+    // GET COLLECTION LIST
+    case "get_collection":
+      sendResponse(collections[request.bookshelve])
+      break;
+    
+    // ADD OR DELETE BOOK FROM COLLECTION
+    case "add_delete": 
+      console.log("THE SHELFT req shelf", request.shelf)
+      add_delete(request.action, request.volumeid, request.shelf)
+        .then(res => {console.log(res); sendResponse(res)})
+        .catch(err => sendResponse(err))
+      break;
+    
+    default:
+      console.log("Sorry I dint understand")
+      sendResponse("done")
+  }
+})
+
 const createUrl = () => {
-  let nonce = encodeURIComponent(Math.random().toString(36).substring(2, 15) + Math.random().toString().substring(2, 15))
-  let url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${client_id}&response_type=${response_type}&redirect_uri=${redirect_uri}&scope=${scope}`
-  console.log(url)
-  return url
+  const client_id = encodeURIComponent("1068499458128-rtql6hemdvta9i76vk517urt80c9mpe7.apps.googleusercontent.com")
+  const response_type = encodeURIComponent("token")
+  const redirect_uri = encodeURIComponent("https://edpnkilfjdnehojaedoeicbjabdocghb.chromiumapp.org")
+  const scope = encodeURIComponent("https://www.googleapis.com/auth/books")
+
+  let link = 
+    `https://accounts.google.com/o/oauth2/v2/auth?
+      client_id=${client_id}&
+      response_type=${response_type}&
+      redirect_uri=${redirect_uri}&
+      scope=${scope}`
+  return link.replaceAll('\n', '').replaceAll(' ', '')
 }
+
 const login = (initial = false) => {
   return new Promise((resolve, error) => {
     chrome.identity.launchWebAuthFlow({
@@ -50,17 +87,15 @@ const login = (initial = false) => {
         }
   
         //initial login or pass login
-        if(initial){
-          chrome.action.setPopup({popup: "./htmls/home.html"}, () => {
-            setTimeout(() => {
-              get_collections()
-            }, 1000)
-            //send initial books
-            resolve("success")
-          })
-        }else{
-          resolve(auth.token)
-        }
+        if(!initial) return resolve(auth.token);
+
+        chrome.action.setPopup({popup: "./htmls/home.html"}, () => {
+          setTimeout(() => {
+            get_collections()
+          }, 1000)
+          //send initial books
+          resolve("success")
+        })
       });
     })
   })
@@ -68,64 +103,12 @@ const login = (initial = false) => {
 const logout = () => {
   console.log("logout!")
   chrome.storage.sync.remove("auth", () => {
-    chrome.action.setPopup({popup: "./htmls/popup.html"}, () => {})
+    chrome.action.setPopup({popup: "./html/popup.html"}, () => {})
   });
   chrome.runtime.sendMessage({message: "logged_out"}, function(response) {
     console.log(response);
   });
 }
-const isUserSignIn = () => {
-  console.log("user sign in status")
-}
-
-chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
-  console.log("new message:", request.message)
-    switch(request.message){
-      case "login": 
-        //check for user already login
-        login(true).then(response => {
-          console.log(response)
-          chrome.runtime.sendMessage({message: "logged_in"}, function(response) {
-            console.log(response);
-          });
-        })
-        sendResponse("done")
-        break;
-      case "logout": logout(); sendResponse("done"); break; 
-      case "get_collection":
-        sendResponse(collections[request.bookshelve])
-        break;
-      case "add_delete": 
-        console.log("THE SHELFT req shelf", request.shelf)
-        add_delete(request.action, request.volumeid, request.shelf)
-        break;
-      default:
-        console.log("Sorry I dint understand")
-        sendResponse("done")
-    }
-})
-
-chrome.runtime.onInstalled.addListener(() => {
-  //how to set some storage
-  //chrome.storage.sync.set({ color:color });
-});
-
-/*
-"default_icon": {
-          "16": "/images/get_started16.png",
-          "32": "/images/get_started32.png",
-          "48": "/images/get_started48.png",
-          "128": "/images/get_started128.png"
-        }
-
-  "icons": {
-      "16": "/images/get_started16.png",
-      "32": "/images/get_started32.png",
-      "48": "/images/get_started48.png",
-      "128": "/images/get_started128.png"
-    }       
-
-*/
 
 const get_token = async () => {
   //got to storage
@@ -185,7 +168,7 @@ const add_delete = async (action, id, shelf) => {
         'Authorization': 'Bearer ' + token,
       }
     }).then(response => response.json())
-    .then(data => console.log(data || [])) //UPDATE BOOKSHELVES
+    .then(() => resolve("success")) //UPDATE BOOKSHELVES
     .catch(err => error(err))
   })
 }
@@ -196,3 +179,29 @@ const add_delete = async (action, id, shelf) => {
   if(data.logged_in)
     chrome.browserAction.setPopup({popup: "logged_in.html"});
 });*/
+
+const isUserSignIn = () => {
+  console.log("user sign in status")
+}
+
+chrome.runtime.onInstalled.addListener(() => {
+  //how to set some storage
+  //chrome.storage.sync.set({ color:color });
+});
+
+/*
+"default_icon": {
+          "16": "/images/get_started16.png",
+          "32": "/images/get_started32.png",
+          "48": "/images/get_started48.png",
+          "128": "/images/get_started128.png"
+        }
+
+  "icons": {
+      "16": "/images/get_started16.png",
+      "32": "/images/get_started32.png",
+      "48": "/images/get_started48.png",
+      "128": "/images/get_started128.png"
+    }       
+
+*/

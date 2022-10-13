@@ -65,5 +65,5 @@ chrome.runtime.sendMessage({message: "get_collection", bookshelve}, function(res
     })
 });
 
-document.querySelector("#back").addEventListener("click", () => {window.location.href = "../htmls/home.html"})
+document.querySelector("#back").addEventListener("click", () => {window.location.href = "../html/home.html"})
 

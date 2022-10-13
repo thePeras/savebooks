@@ -10,7 +10,7 @@ const search_books = async (search) => {
       fetch(`https://www.googleapis.com/books/v1/volumes?q=${search}&key=${APP_KEY}`, {method: 'GET', headers: {'Content-Type': 'application/json'}})
         .then(response => response.json())
         .then(data => {
-            //remove isBook: true
+            // Removing ebooks
             let search = data.items.filter((book) => !book.saleInfo.isEbook)
             print_books(search)
         })
@@ -48,10 +48,11 @@ const createBook = (book) => {
 
 const addBook = (volumeid) => {
     chrome.runtime.sendMessage({message: "add_delete", action: "add", volumeid: volumeid, shelf: list.value}, function(response) {
-        console.log(response)
+        searched_books.innerHTML = ""
+        book_search.value = ""
     });
 }
 
 //Events
-book_search.addEventListener("change", () => {search_books(book_search.value)})
-document.querySelector("#back").addEventListener("click", () => {window.location.href = "../htmls/home.html"})
+book_search.addEventListener("keydown", () => {search_books(book_search.value)})
+document.querySelector("#back").addEventListener("click", () => {window.location.href = "../html/home.html"})

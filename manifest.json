@@ -8,7 +8,7 @@
     },
     "permissions": ["storage", "activeTab", "scripting", "identity"],
     "action": {
-        "default_popup": "./htmls/popup.html",
+        "default_popup": "./html/popup.html",
         "default_title": "Login"
     },
     "oauth2": {
