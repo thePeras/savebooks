@@ -16,4 +16,4 @@
         "scopes": ["https://www.googleapis.com/auth/books"]
     },
     "host_permissions": ["https://www.googleapis.com/books/v1/*"]
-  }
+}
